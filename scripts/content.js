@@ -1,7 +1,7 @@
 console.log("Educative Plugin content.js");
 
 function processPage() {
-  console.log("ext loading2");
+  console.log("Educative plugin: processPage");
 
   // Find the HTML element
   const element = document.querySelector(".jgBvsf");
@@ -9,13 +9,25 @@ function processPage() {
   // Remove the class from the element
   if (element) {
     element.classList.remove("jgBvsf");
+  } else {
+    console.error("Educative plugin: class .jgBvsf not found");
   }
 }
 
-// Call the function initially
-processPage();
+// Create a MutationObserver to observe changes in the DOM
+const observer = new MutationObserver(function(mutationsList) {
+  for (let mutation of mutationsList) {
+    if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+      // Check if the desired class becomes available
+      const element = document.querySelector(".jgBvsf");
+      if (element) {
+        processPage();
+        observer.disconnect();
+        break;
+      }
+    }
+  }
+});
 
-// Execute the function every 2 seconds
-setInterval(processPage, 2000);
-
-
+// Observe the entire document for changes in the DOM
+observer.observe(document, { childList: true, subtree: true });
