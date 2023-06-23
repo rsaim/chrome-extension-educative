@@ -31,3 +31,12 @@ const observer = new MutationObserver(function(mutationsList) {
 
 // Observe the entire document for changes in the DOM
 observer.observe(document, { childList: true, subtree: true });
+
+
+// Also support manual trigger from the extension
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === "execute") {
+    processPage();
+  }
+});
+
