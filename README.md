@@ -1,0 +1,5 @@
+- Clone the repository
+- Load the extension in Chrome:
+  - Open the Extensions page by entering chrome://extensions in the address bar.
+    - Enable the "Developer mode" toggle in the top right corner.
+    - Click on the "Load unpacked" button and select the directory where the extension files are located.
